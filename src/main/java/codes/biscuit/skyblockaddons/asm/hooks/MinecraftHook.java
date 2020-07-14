@@ -88,6 +88,7 @@ public class MinecraftHook {
 
     public static void rightClickMouse(ReturnValue<?> returnValue) {
         SkyblockAddons main = SkyblockAddons.getInstance();
+
         if (main.getUtils().isOnSkyblock()) {
             Minecraft mc = Minecraft.getMinecraft();
             if (mc.objectMouseOver != null && mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
@@ -97,6 +98,14 @@ public class MinecraftHook {
                         ItemStack item = mc.thePlayer.inventory.getCurrentItem();
                         ItemStack itemInUse = mc.thePlayer.getItemInUse();
                         if ((isItemBow(item) || isItemBow(itemInUse))) {
+                            if (System.currentTimeMillis() - lastProfileMessage > 20000) {
+                                lastProfileMessage = System.currentTimeMillis();
+                                main.getUtils().sendMessage(main.getConfigValues().getRestrictedColor(Feature.DONT_OPEN_PROFILES_WITH_BOW) +
+                                        Message.MESSAGE_STOPPED_OPENING_PROFILE.getMessage());
+                            }
+                            returnValue.cancel();
+                            return;
+                        }else if((isItemFrozenScythe(item) || isItemFrozenScythe(itemInUse))){
                             if (System.currentTimeMillis() - lastProfileMessage > 20000) {
                                 lastProfileMessage = System.currentTimeMillis();
                                 main.getUtils().sendMessage(main.getConfigValues().getRestrictedColor(Feature.DONT_OPEN_PROFILES_WITH_BOW) +
@@ -121,6 +130,10 @@ public class MinecraftHook {
 
     private static boolean isItemBow(ItemStack item) {
         return item != null && item.getItem() != null && item.getItem().equals(Items.bow);
+    }
+
+    private static boolean isItemFrozenScythe(ItemStack item) {
+        return item != null && item.getItem() != null && item.getItem().equals(Items.iron_hoe);
     }
 
     public static void updatedCurrentItem() {
