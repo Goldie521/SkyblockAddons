@@ -105,10 +105,18 @@ public class MinecraftHook {
                             }
                             returnValue.cancel();
                             return;
-                        }else if((isItemFrozenScythe(item) || isItemFrozenScythe(itemInUse))){
+                        }
+
+                    }
+                }
+                if (main.getConfigValues().isEnabled(Feature.DONT_OPEN_PROFILES_WITH_FROZEN_SCYTHE)) {
+                    if (entityIn instanceof EntityOtherPlayerMP && !NPCUtils.isNPC(entityIn)) {
+                        ItemStack item = mc.thePlayer.inventory.getCurrentItem();
+                        ItemStack itemInUse = mc.thePlayer.getItemInUse();
+                        if ((isItemFrozenScythe(item) || isItemFrozenScythe(itemInUse))) {
                             if (System.currentTimeMillis() - lastProfileMessage > 20000) {
                                 lastProfileMessage = System.currentTimeMillis();
-                                main.getUtils().sendMessage(main.getConfigValues().getRestrictedColor(Feature.DONT_OPEN_PROFILES_WITH_BOW) +
+                                main.getUtils().sendMessage(main.getConfigValues().getRestrictedColor(Feature.DONT_OPEN_PROFILES_WITH_FROZEN_SCYTHE) +
                                         Message.MESSAGE_STOPPED_OPENING_PROFILE.getMessage());
                             }
                             returnValue.cancel();

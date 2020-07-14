@@ -67,6 +67,7 @@ public enum Message {
     SETTING_CHANGE_COLOR(MessageObject.SETTING, "changeColor"),
     SETTING_SHOW_IN_OTHER_GAMES(MessageObject.SETTING, "showInOtherGames"),
     SETTING_DONT_OPEN_PROFILES_WITH_BOW(MessageObject.SETTING, "dontOpenProfileWithBow"),
+    SETTING_DONT_OPEN_PROFILES_WITH_FROZEN_SCYTHE(MessageObject.SETTING, "dontOpenProfileWithFrozenScythe"),
     SETTING_MAKE_ENDERCHESTS_IN_END_GREEN(MessageObject.SETTING, "makeEnderchestsInEndGreen"),
     SETTING_STOP_DROPPING_SELLING_RARE_ITEMS(MessageObject.SETTING, "stopDroppingSellingRareItems"),
     SETTING_MAKE_BACKPACK_INVENTORIES_COLORED(MessageObject.SETTING, "makeBackpackInventoriesColored"),
